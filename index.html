@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DirectGuest — It's Your Guest.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #8f3dd3;
+      --purple-light: #b06de8;
+      --purple-dim: rgba(143, 61, 211, 0.15);
+      --bg: #07070d;
+      --bg2: #0e0e18;
+      --surface: #13131f;
+      --border: rgba(143, 61, 211, 0.2);
+      --text: #f0eef8;
+      --muted: #8a879e;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(7, 7, 13, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    .nav-logo span {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .btn-demo {
+      background: var(--purple);
+      color: var(--white);
+      border: none;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+
+    .btn-demo:hover {
+      background: var(--purple-light);
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 140px 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(143, 61, 211, 0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3.5rem, 8vw, 7.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      color: var(--white);
+      max-width: 800px;
+      margin-bottom: 36px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--purple-light);
+    }
+
+    .hero-sub {
+      font-size: 1.125rem;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      background: var(--purple);
+      color: var(--white);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--purple-light);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 400;
+      padding: 14px 0;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .btn-ghost:hover {
+      color: var(--text);
+      border-bottom-color: var(--purple);
+    }
+
+    /* ── SCROLL STRIP ── */
+    .photo-strip {
+      width: 100%;
+      overflow: hidden;
+      padding: 40px 0;
+      position: relative;
+    }
+
+    .photo-strip::before,
+    .photo-strip::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 180px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .photo-strip::before {
+      left: 0;
+      background: linear-gradient(to right, var(--bg), transparent);
+    }
+
+    .photo-strip::after {
+      right: 0;
+      background: linear-gradient(to left, var(--bg), transparent);
+    }
+
+    .strip-track {
+      display: flex;
+      gap: 16px;
+      animation: scroll-strip 40s linear infinite;
+      width: max-content;
+    }
+
+    .strip-card {
+      width: 200px;
+      height: 260px;
+      border-radius: 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .strip-card-inner {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, var(--bg2) 0%, var(--surface) 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+    }
+
+    .strip-card:nth-child(3n) .strip-card-inner {
+      background: linear-gradient(135deg, #0d0a14 0%, #1a1030 100%);
+    }
+
+    .strip-card:nth-child(3n+1) .strip-card-inner {
+      background: linear-gradient(135deg, #090912 0%, #121224 100%);
+    }
+
+    .strip-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      opacity: 0.7;
+    }
+
+    @keyframes scroll-strip {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 48px;
+    }
+
+    /* ── OFFERINGS ── */
+    .offerings {
+      padding: 120px 48px;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 56px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 60px;
+      height: 1px;
+      background: var(--purple);
+      opacity: 0.4;
+    }
+
+    .offerings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .offering-card {
+      background: var(--bg2);
+      padding: 48px 40px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, background 0.3s;
+      cursor: default;
+    }
+
+    .offering-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--purple);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .offering-card:hover::before { transform: scaleX(1); }
+
+    .offering-card:hover {
+      background: var(--surface);
+      border-color: rgba(143, 61, 211, 0.4);
+    }
+
+    .offering-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: var(--purple);
+      margin-bottom: 32px;
+      opacity: 0.6;
+    }
+
+    .offering-icon {
+      width: 44px;
+      height: 44px;
+      margin-bottom: 28px;
+      opacity: 0.9;
+    }
+
+    .offering-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .offering-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    /* ── STATEMENT ── */
+    .statement {
+      padding: 120px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .statement h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--white);
+    }
+
+    .statement h2 span {
+      color: var(--purple-light);
+    }
+
+    .statement-right p {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 20px;
+    }
+
+    .statement-right p:last-of-type { margin-bottom: 36px; }
+
+    /* ── STATS ── */
+    .stats {
+      padding: 80px 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .stat-item {
+      background: var(--bg);
+      padding: 56px 48px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 3rem;
+      color: var(--purple-light);
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.825rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      padding: 120px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(143, 61, 211, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-band h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      letter-spacing: -0.03em;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .cta-band p {
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 300;
+      margin-bottom: 44px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .footer-logo svg { width: 28px; height: 28px; }
+
+    .footer-logo span {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--white);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.825rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-copy {
+      font-size: 0.775rem;
+      color: var(--muted);
+      opacity: 0.6;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .fade-up:nth-child(2) { animation-delay: 0.1s; }
+    .fade-up:nth-child(3) { animation-delay: 0.2s; }
+    .fade-up:nth-child(4) { animation-delay: 0.3s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 120px 24px 60px; }
+      .offerings { padding: 80px 24px; }
+      .offerings-grid { grid-template-columns: 1fr; }
+      .statement { padding: 80px 24px; grid-template-columns: 1fr; gap: 40px; }
+      .stats { grid-template-columns: 1fr; }
+      .cta-band { padding: 80px 24px; }
+      footer { padding: 32px 24px; flex-direction: column; gap: 20px; text-align: center; }
+      .divider { margin: 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 375" fill="none">
+      <g clip-path="url(#a)">
+        <path fill="#8f3dd3" fill-rule="evenodd" d="M188.184 208.789c0 2.305-1.863 4.16-4.16 4.16H66.941c-2.293 0-4.156-1.855-4.156-4.16 0-2.301 1.863-4.156 4.156-4.156h117.083c2.297 0 4.16 1.863 4.16 4.156Zm-125.399-36.059c0-2.297 1.863-4.16 4.156-4.16h177.617c2.293 0 4.16 1.863 4.16 4.16 0 2.293-1.867 4.156-4.16 4.156H66.941c-2.293 0-4.156-1.863-4.156-4.156Zm0-36.062c0-2.3 1.863-4.156 4.156-4.156h219c2.297 0 4.16 1.856 4.16 4.156 0 2.301-1.863 4.16-4.16 4.16h-219c-2.293 0-4.156-1.859-4.156-4.16Zm0-36.062c0-2.301 1.863-4.156 4.156-4.156h190.168c2.297 0 4.16 1.855 4.16 4.156 0 2.305-1.863 4.16-4.16 4.16H66.941c-2.293 0-4.156-1.863-4.156-4.16Zm244.164 215.469 3.945 1.324-3.93-1.305-.089-.012-23.422-48.512 59.773-59.77-36.285 108.274Zm-77.902-77.793 48.532 23.406 59.812-59.809-108.316 36.32Zm-80.363 12.191h86.531l-9.765-4.711c-3.074-1.484-4.918-4.644-4.703-8.054.214-3.41 2.445-6.308 5.683-7.395l97.703-32.742V85.332c0-14.562-11.847-26.406-26.406-26.406H55.152c-14.563 0-26.406 11.844-26.406 26.406v138.734c0 14.563 11.843 26.407 26.406 26.407h28.527c2.293 0 4.16 1.863 4.16 4.16v54.086l57.926-57.047c.777-.769 1.824-1.199 2.918-1.199Zm203.359-42.316c-2.253-2.258-5.539-3.027-8.566-2.016l-11.027 3.696V85.332c0-19.149-15.582-34.723-34.723-34.723H55.152c-19.14 0-34.723 15.574-34.723 34.723v138.734c0 19.149 15.574 34.723 34.723 34.723h24.371v59.863c0 1.676 1.004 3.187 2.551 3.84.52.215 1.059.316 1.606.316 1.074 0 2.129-.414 2.918-1.191l63.793-62.828h102.047l22.875 11.043 24.07 49.867c1.407 2.91 4.309 4.718 7.512 4.718.18 0 .359 0 .539-.015 3.406-.215 6.309-2.445 7.399-5.68l39.218-117.051c1.012-3.027.242-6.304-2.015-8.566Z"/>
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M20.465 50.531h333.75v273.75H20.465z"/>
+        </clipPath>
+      </defs>
+    </svg>
+    <span>DirectGuest</span>
+  </a>
+
+  <a href="mailto:hello@directguest.ai" class="btn-demo">Book a Demo</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow fade-up">AI-powered hospitality infrastructure</p>
+  <h1 class="fade-up">It's Your<br /><em>Guest.</em></h1>
+  <p class="hero-sub fade-up">Direct booking technology built for the AI era. Connect your property to the guests who are ready to book — without the middleman.</p>
+  <div class="hero-ctas fade-up">
+    <a href="mailto:hello@directguest.ai" class="btn-primary">Book a Demo</a>
+    <a href="#offerings" class="btn-ghost">See Solutions ↓</a>
+  </div>
+</section>
+
+<!-- SCROLL STRIP -->
+<div class="photo-strip">
+  <div class="strip-track" id="strip">
+    <!-- Cards duplicated for infinite scroll -->
+    <div class="strip-card"><div class="strip-card-inner"><span class="strip-label">Boutique Hotel</span></div></div>
+    <div class="strip-card"><div class="strip-card-inner"><span class="strip-label">City Property</span></div></div>
+    <div class="strip-card"><div class="strip-card-inner"><span class="strip-label">Resort</span></div></div>
+    <div class="strip-card"><div class="strip-card-inner"><span class="strip-label">B&amp;B</span></div></div>
+    <div class="strip-card"><div class="strip-card-inner"><span class="strip-label">Inn</span></div></div>
+    <div class="strip-card"><div class="strip-card-inner"><span class="strip-label">Luxury Hotel</span></div></div>
+    <div class="strip-card"><div class="strip-card-inner"><span class="strip-label">Lodge</span></div></div>
+    <!-- Duplicate for seamless loop -->
+    <div class="strip-card"><div class="strip-card-inner"><span class="strip-label">Boutique Hotel</span></div></div>
+    <div class="strip-card"><div class="strip-card-inner"><span class="strip-label">City Property</span></div></div>
+    <div class="strip-card"><div class="strip-card-inner"><span class="strip-label">Resort</span></div></div>
+    <div class="strip-card"><div class="strip-card-inner"><span class="strip-label">B&amp;B</span></div></div>
+    <div class="strip-card"><div class="strip-card-inner"><span class="strip-label">Inn</span></div></div>
+    <div class="strip-card"><div class="strip-card-inner"><span class="strip-label">Luxury Hotel</span></div></div>
+    <div class="strip-card"><div class="strip-card-inner"><span class="strip-label">Lodge</span></div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- OFFERINGS -->
+<section class="offerings" id="offerings">
+  <p class="section-label">Solutions</p>
+
+  <div class="offerings-grid">
+
+    <!-- Card 1 -->
+    <div class="offering-card">
+      <p class="offering-num">01</p>
+      <svg class="offering-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="8" width="36" height="28" rx="4" stroke="#8f3dd3" stroke-width="1.5"/>
+        <path d="M4 16h36" stroke="#8f3dd3" stroke-width="1.5"/>
+        <circle cx="22" cy="28" r="4" stroke="#b06de8" stroke-width="1.5"/>
+        <path d="M16 28h2M26 28h2" stroke="#b06de8" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <h3>LLM Apps &amp; Connectors</h3>
+      <p>Hyper-local direct hotel booking experiences powered by large language models. Intelligent apps that understand context, preference, and availability — and close the booking without friction.</p>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="offering-card">
+      <p class="offering-num">02</p>
+      <svg class="offering-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M36 8H28a4 4 0 0 0-4 4v8a4 4 0 0 0 4 4h1l3 4 3-4h1a4 4 0 0 0 4-4v-8a4 4 0 0 0-4-4Z" stroke="#8f3dd3" stroke-width="1.5"/>
+        <path d="M20 18H8a4 4 0 0 0-4 4v8a4 4 0 0 0 4 4h1l3 4 3-4h5" stroke="#b06de8" stroke-width="1.5"/>
+        <path d="M30 14h2M30 18h4" stroke="#8f3dd3" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <h3>Social Media Bookings</h3>
+      <p>Turn social media touchpoints into confirmed reservations. Guests discover, inquire, and book directly through the platforms where they already spend time — Instagram, WhatsApp, and beyond.</p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="offering-card">
+      <p class="offering-num">03</p>
+      <svg class="offering-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="22" cy="22" r="6" stroke="#8f3dd3" stroke-width="1.5"/>
+        <circle cx="8" cy="12" r="3" stroke="#b06de8" stroke-width="1.5"/>
+        <circle cx="36" cy="12" r="3" stroke="#b06de8" stroke-width="1.5"/>
+        <circle cx="8" cy="32" r="3" stroke="#b06de8" stroke-width="1.5"/>
+        <circle cx="36" cy="32" r="3" stroke="#b06de8" stroke-width="1.5"/>
+        <path d="M11 14l8 6M25 22l8-8M11 30l8-6M25 22l8 8" stroke="#8f3dd3" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <h3>Individual MCP Connections</h3>
+      <p>Purpose-built Model Context Protocol integrations for individual hospitality venues. Your property, your data, your direct channel — connected to the AI ecosystem guests are already using.</p>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STATEMENT -->
+<section class="statement">
+  <div class="statement-left">
+    <h2>The booking<br />channel <span>belongs<br />to you.</span></h2>
+  </div>
+  <div class="statement-right">
+    <p>OTAs take the commission. Social platforms take the attention. AI assistants are becoming the new front door for travel decisions — and DirectGuest puts your property directly inside that conversation.</p>
+    <p>We build the connectors, the apps, and the infrastructure so independent hotels and boutique properties can own their guest relationship from first query to checkout.</p>
+    <a href="mailto:hello@directguest.ai" class="btn-primary">Talk to us →</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item">
+    <div class="stat-num">0%</div>
+    <div class="stat-label">OTA commission on direct bookings</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">AI-first</div>
+    <div class="stat-label">Built for the model context protocol era</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">Direct</div>
+    <div class="stat-label">Guest relationship, always yours</div>
+  </div>
+</div>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <h2>Ready to own your<br />booking channel?</h2>
+  <p>Let's talk about what DirectGuest can build for your property.</p>
+  <a href="mailto:hello@directguest.ai" class="btn-primary">Book a Demo</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 375" fill="none">
+      <g clip-path="url(#b)">
+        <path fill="#8f3dd3" fill-rule="evenodd" d="M188.184 208.789c0 2.305-1.863 4.16-4.16 4.16H66.941c-2.293 0-4.156-1.855-4.156-4.16 0-2.301 1.863-4.156 4.156-4.156h117.083c2.297 0 4.16 1.863 4.16 4.156Zm-125.399-36.059c0-2.297 1.863-4.16 4.156-4.16h177.617c2.293 0 4.16 1.863 4.16 4.16 0 2.293-1.867 4.156-4.16 4.156H66.941c-2.293 0-4.156-1.863-4.156-4.156Zm0-36.062c0-2.3 1.863-4.156 4.156-4.156h219c2.297 0 4.16 1.856 4.16 4.156 0 2.301-1.863 4.16-4.16 4.16h-219c-2.293 0-4.156-1.859-4.156-4.16Zm0-36.062c0-2.301 1.863-4.156 4.156-4.156h190.168c2.297 0 4.16 1.855 4.16 4.156 0 2.305-1.863 4.16-4.16 4.16H66.941c-2.293 0-4.156-1.863-4.156-4.16Zm244.164 215.469 3.945 1.324-3.93-1.305-.089-.012-23.422-48.512 59.773-59.77-36.285 108.274Zm-77.902-77.793 48.532 23.406 59.812-59.809-108.316 36.32Zm-80.363 12.191h86.531l-9.765-4.711c-3.074-1.484-4.918-4.644-4.703-8.054.214-3.41 2.445-6.308 5.683-7.395l97.703-32.742V85.332c0-14.562-11.847-26.406-26.406-26.406H55.152c-14.563 0-26.406 11.844-26.406 26.406v138.734c0 14.563 11.843 26.407 26.406 26.407h28.527c2.293 0 4.16 1.863 4.16 4.16v54.086l57.926-57.047c.777-.769 1.824-1.199 2.918-1.199Zm203.359-42.316c-2.253-2.258-5.539-3.027-8.566-2.016l-11.027 3.696V85.332c0-19.149-15.582-34.723-34.723-34.723H55.152c-19.14 0-34.723 15.574-34.723 34.723v138.734c0 19.149 15.574 34.723 34.723 34.723h24.371v59.863c0 1.676 1.004 3.187 2.551 3.84.52.215 1.059.316 1.606.316 1.074 0 2.129-.414 2.918-1.191l63.793-62.828h102.047l22.875 11.043 24.07 49.867c1.407 2.91 4.309 4.718 7.512 4.718.18 0 .359 0 .539-.015 3.406-.215 6.309-2.445 7.399-5.68l39.218-117.051c1.012-3.027.242-6.304-2.015-8.566Z"/>
+      </g>
+      <defs><clipPath id="b"><path d="M20.465 50.531h333.75v273.75H20.465z"/></clipPath></defs>
+    </svg>
+    <span>DirectGuest</span>
+  </a>
+
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="privacy.html">Privacy Policy</a></li>
+    <li><a href="terms.html">Terms of Use</a></li>
+  </ul>
+
+  <p class="footer-copy">&copy; 2025 DirectGuest. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Use — DirectGuest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #8f3dd3;
+      --purple-light: #b06de8;
+      --bg: #07070d;
+      --bg2: #0e0e18;
+      --surface: #13131f;
+      --border: rgba(143, 61, 211, 0.2);
+      --text: #f0eef8;
+      --muted: #8a879e;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(7, 7, 13, 0.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo svg { width: 32px; height: 32px; }
+
+    .nav-logo span {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--white);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .btn-demo {
+      background: var(--purple);
+      color: var(--white);
+      border: none;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-demo:hover { background: var(--purple-light); }
+
+    .page-header {
+      padding: 160px 48px 80px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 20px;
+    }
+
+    .page-header h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: -0.03em;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .page-header .updated {
+      font-size: 0.825rem;
+      color: var(--muted);
+    }
+
+    .content-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 80px 48px 120px;
+    }
+
+    .content-wrap h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin: 56px 0 16px;
+    }
+
+    .content-wrap h2:first-child { margin-top: 0; }
+
+    .content-wrap p {
+      font-size: 0.9375rem;
+      color: var(--muted);
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+
+    .content-wrap ul {
+      margin: 0 0 16px 0;
+      padding-left: 20px;
+    }
+
+    .content-wrap li {
+      font-size: 0.9375rem;
+      color: var(--muted);
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 6px;
+    }
+
+    .content-wrap a {
+      color: var(--purple-light);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(176, 109, 232, 0.3);
+      transition: border-color 0.2s;
+    }
+
+    .content-wrap a:hover { border-bottom-color: var(--purple-light); }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .footer-logo svg { width: 26px; height: 26px; }
+
+    .footer-logo span {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--white);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: color 0.2s;
+      border: none;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-copy {
+      font-size: 0.775rem;
+      color: var(--muted);
+      opacity: 0.6;
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .page-header { padding: 120px 24px 60px; }
+      .content-wrap { padding: 60px 24px 80px; }
+      footer { padding: 32px 24px; flex-direction: column; gap: 20px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 375" fill="none">
+      <g clip-path="url(#e)">
+        <path fill="#8f3dd3" fill-rule="evenodd" d="M188.184 208.789c0 2.305-1.863 4.16-4.16 4.16H66.941c-2.293 0-4.156-1.855-4.156-4.16 0-2.301 1.863-4.156 4.156-4.156h117.083c2.297 0 4.16 1.863 4.16 4.156Zm-125.399-36.059c0-2.297 1.863-4.16 4.156-4.16h177.617c2.293 0 4.16 1.863 4.16 4.16 0 2.293-1.867 4.156-4.16 4.156H66.941c-2.293 0-4.156-1.863-4.156-4.156Zm0-36.062c0-2.3 1.863-4.156 4.156-4.156h219c2.297 0 4.16 1.856 4.16 4.156 0 2.301-1.863 4.16-4.16 4.16h-219c-2.293 0-4.156-1.859-4.156-4.16Zm0-36.062c0-2.301 1.863-4.156 4.156-4.156h190.168c2.297 0 4.16 1.855 4.16 4.156 0 2.305-1.863 4.16-4.16 4.16H66.941c-2.293 0-4.156-1.863-4.156-4.16Zm244.164 215.469 3.945 1.324-3.93-1.305-.089-.012-23.422-48.512 59.773-59.77-36.285 108.274Zm-77.902-77.793 48.532 23.406 59.812-59.809-108.316 36.32Zm-80.363 12.191h86.531l-9.765-4.711c-3.074-1.484-4.918-4.644-4.703-8.054.214-3.41 2.445-6.308 5.683-7.395l97.703-32.742V85.332c0-14.562-11.847-26.406-26.406-26.406H55.152c-14.563 0-26.406 11.844-26.406 26.406v138.734c0 14.563 11.843 26.407 26.406 26.407h28.527c2.293 0 4.16 1.863 4.16 4.16v54.086l57.926-57.047c.777-.769 1.824-1.199 2.918-1.199Zm203.359-42.316c-2.253-2.258-5.539-3.027-8.566-2.016l-11.027 3.696V85.332c0-19.149-15.582-34.723-34.723-34.723H55.152c-19.14 0-34.723 15.574-34.723 34.723v138.734c0 19.149 15.574 34.723 34.723 34.723h24.371v59.863c0 1.676 1.004 3.187 2.551 3.84.52.215 1.059.316 1.606.316 1.074 0 2.129-.414 2.918-1.191l63.793-62.828h102.047l22.875 11.043 24.07 49.867c1.407 2.91 4.309 4.718 7.512 4.718.18 0 .359 0 .539-.015 3.406-.215 6.309-2.445 7.399-5.68l39.218-117.051c1.012-3.027.242-6.304-2.015-8.566Z"/>
+      </g>
+      <defs><clipPath id="e"><path d="M20.465 50.531h333.75v273.75H20.465z"/></clipPath></defs>
+    </svg>
+    <span>DirectGuest</span>
+  </a>
+  <a href="mailto:hello@directguest.ai" class="btn-demo">Book a Demo</a>
+</nav>
+
+<div class="page-header">
+  <p class="page-eyebrow">Legal</p>
+  <h1>Terms of Use</h1>
+  <p class="updated">Last updated: March 2025</p>
+</div>
+
+<div class="content-wrap">
+
+  <h2>1. Acceptance of Terms</h2>
+  <p>By accessing or using the DirectGuest website, applications, or services (collectively, the "Services"), you agree to be bound by these Terms of Use ("Terms"). If you do not agree to these Terms, you may not access or use the Services.</p>
+  <p>These Terms apply to all visitors, hospitality partners, and other users of the Services.</p>
+
+  <h2>2. Description of Services</h2>
+  <p>DirectGuest provides AI-powered hospitality technology infrastructure, including:</p>
+  <ul>
+    <li>LLM-powered applications and connectors for direct hotel booking</li>
+    <li>Social media booking integrations enabling reservations through platforms such as WhatsApp and Instagram</li>
+    <li>Individual Model Context Protocol (MCP) connections for hospitality venues</li>
+  </ul>
+  <p>We reserve the right to modify, suspend, or discontinue any aspect of the Services at any time without notice.</p>
+
+  <h2>3. Eligibility</h2>
+  <p>You must be at least 18 years of age and legally capable of entering into binding contracts to use our Services. By using the Services, you represent and warrant that you meet these requirements.</p>
+
+  <h2>4. Account Registration and Partner Onboarding</h2>
+  <p>Hospitality partners who integrate with DirectGuest's systems must complete our onboarding process and provide accurate, current information. You are responsible for maintaining the confidentiality of any access credentials provided and for all activities that occur under your account. Notify us immediately at <a href="mailto:hello@directguest.ai">hello@directguest.ai</a> if you suspect unauthorized access.</p>
+
+  <h2>5. Permitted Use</h2>
+  <p>You agree to use the Services only for lawful purposes and in accordance with these Terms. You may not:</p>
+  <ul>
+    <li>Use the Services in any manner that violates applicable law or regulation</li>
+    <li>Attempt to gain unauthorized access to any part of the Services or connected systems</li>
+    <li>Reverse engineer, decompile, or disassemble any software component of the Services</li>
+    <li>Transmit any viruses, malware, or other harmful code</li>
+    <li>Use the Services to send unsolicited communications or spam</li>
+    <li>Misrepresent your identity or affiliation with any property or entity</li>
+    <li>Interfere with or disrupt the integrity or performance of the Services</li>
+  </ul>
+
+  <h2>6. Booking Transactions</h2>
+  <p>DirectGuest facilitates bookings between guests and hospitality venues. We are not a party to the reservation contract between guest and property. All booking terms, cancellation policies, and room rates are set by the individual property. DirectGuest does not guarantee availability, pricing accuracy, or the performance of any hospitality partner.</p>
+  <p>Disputes related to a specific reservation should be addressed directly with the relevant property.</p>
+
+  <h2>7. AI and LLM Services</h2>
+  <p>Our LLM-powered applications are designed to assist in the booking process but may occasionally produce inaccurate or incomplete information. You should verify critical booking details directly with the property before completing a reservation. DirectGuest is not liable for errors arising from AI-generated responses.</p>
+
+  <h2>8. Intellectual Property</h2>
+  <p>All content, trademarks, logos, software, and technology comprising the Services are the property of DirectGuest or its licensors and are protected by applicable intellectual property laws. You are granted a limited, non-exclusive, non-transferable license to access and use the Services for their intended purpose. No rights are granted beyond what is expressly stated here.</p>
+
+  <h2>9. Disclaimer of Warranties</h2>
+  <p>THE SERVICES ARE PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. DIRECTGUEST DISCLAIMS ALL WARRANTIES INCLUDING, WITHOUT LIMITATION, WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SERVICES WILL BE UNINTERRUPTED, ERROR-FREE, OR FREE OF HARMFUL COMPONENTS.</p>
+
+  <h2>10. Limitation of Liability</h2>
+  <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, DIRECTGUEST SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF OR RELATED TO YOUR USE OF THE SERVICES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. OUR TOTAL LIABILITY FOR ANY CLAIM ARISING FROM THE SERVICES SHALL NOT EXCEED THE GREATER OF $100 USD OR THE AMOUNT PAID BY YOU TO DIRECTGUEST IN THE TWELVE MONTHS PRECEDING THE CLAIM.</p>
+
+  <h2>11. Indemnification</h2>
+  <p>You agree to indemnify and hold harmless DirectGuest and its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, and expenses (including reasonable attorneys' fees) arising out of your use of the Services, your violation of these Terms, or your violation of any rights of a third party.</p>
+
+  <h2>12. Third-Party Integrations</h2>
+  <p>Our Services integrate with third-party platforms including social media networks, property management systems, and AI infrastructure providers. Your use of such platforms is governed by their respective terms of service. DirectGuest is not responsible for the practices or content of third-party services.</p>
+
+  <h2>13. Modifications to Terms</h2>
+  <p>We reserve the right to modify these Terms at any time. We will indicate the date of the most recent revision at the top of this page. Your continued use of the Services after any changes constitutes acceptance of the revised Terms.</p>
+
+  <h2>14. Governing Law</h2>
+  <p>These Terms shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict of law provisions. Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the courts located in Delaware.</p>
+
+  <h2>15. Contact</h2>
+  <p>For questions about these Terms of Use, please contact us at <a href="mailto:hello@directguest.ai">hello@directguest.ai</a>.</p>
+
+</div>
+
+<footer>
+  <a href="index.html" class="footer-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 375" fill="none">
+      <g clip-path="url(#f)">
+        <path fill="#8f3dd3" fill-rule="evenodd" d="M188.184 208.789c0 2.305-1.863 4.16-4.16 4.16H66.941c-2.293 0-4.156-1.855-4.156-4.16 0-2.301 1.863-4.156 4.156-4.156h117.083c2.297 0 4.16 1.863 4.16 4.156Zm-125.399-36.059c0-2.297 1.863-4.16 4.156-4.16h177.617c2.293 0 4.16 1.863 4.16 4.16 0 2.293-1.867 4.156-4.16 4.156H66.941c-2.293 0-4.156-1.863-4.156-4.156Zm0-36.062c0-2.3 1.863-4.156 4.156-4.156h219c2.297 0 4.16 1.856 4.16 4.156 0 2.301-1.863 4.16-4.16 4.16h-219c-2.293 0-4.156-1.859-4.156-4.16Zm0-36.062c0-2.301 1.863-4.156 4.156-4.156h190.168c2.297 0 4.16 1.855 4.16 4.156 0 2.305-1.863 4.16-4.16 4.16H66.941c-2.293 0-4.156-1.863-4.156-4.16Zm244.164 215.469 3.945 1.324-3.93-1.305-.089-.012-23.422-48.512 59.773-59.77-36.285 108.274Zm-77.902-77.793 48.532 23.406 59.812-59.809-108.316 36.32Zm-80.363 12.191h86.531l-9.765-4.711c-3.074-1.484-4.918-4.644-4.703-8.054.214-3.41 2.445-6.308 5.683-7.395l97.703-32.742V85.332c0-14.562-11.847-26.406-26.406-26.406H55.152c-14.563 0-26.406 11.844-26.406 26.406v138.734c0 14.563 11.843 26.407 26.406 26.407h28.527c2.293 0 4.16 1.863 4.16 4.16v54.086l57.926-57.047c.777-.769 1.824-1.199 2.918-1.199Zm203.359-42.316c-2.253-2.258-5.539-3.027-8.566-2.016l-11.027 3.696V85.332c0-19.149-15.582-34.723-34.723-34.723H55.152c-19.14 0-34.723 15.574-34.723 34.723v138.734c0 19.149 15.574 34.723 34.723 34.723h24.371v59.863c0 1.676 1.004 3.187 2.551 3.84.52.215 1.059.316 1.606.316 1.074 0 2.129-.414 2.918-1.191l63.793-62.828h102.047l22.875 11.043 24.07 49.867c1.407 2.91 4.309 4.718 7.512 4.718.18 0 .359 0 .539-.015 3.406-.215 6.309-2.445 7.399-5.68l39.218-117.051c1.012-3.027.242-6.304-2.015-8.566Z"/>
+      </g>
+      <defs><clipPath id="f"><path d="M20.465 50.531h333.75v273.75H20.465z"/></clipPath></defs>
+    </svg>
+    <span>DirectGuest</span>
+  </a>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="privacy.html">Privacy Policy</a></li>
+    <li><a href="terms.html">Terms of Use</a></li>
+  </ul>
+  <p class="footer-copy">&copy; 2025 DirectGuest. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
